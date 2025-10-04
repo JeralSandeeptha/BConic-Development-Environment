@@ -3,7 +3,7 @@ version: '3.8'
 services:
   frontend:
     container_name: frontend_container
-    image: jeralsandeeptha/bconic-frontend:cbd1761884f40c2672e908fa8b4ba949be1f4e6e
+    image: jeralsandeeptha/bconic-frontend:a55cfaa8d4b9597f78a85bac2ab41ed8c7581f72
     restart: always
     ports:
       - "80:80"
