@@ -3,10 +3,13 @@ version: '3.8'
 services:
   frontend:
     container_name: frontend_container
-    image: jeralsandeeptha/bconic-frontend:1fec3c745021877180efd0047ee9e7a2a480d1d4
+    image: jeralsandeeptha/bconic-frontend:cbd1761884f40c2672e908fa8b4ba949be1f4e6e
     restart: always
     ports:
       - "80:80"
+    environment:
+      REACT_APP_BACKEND_BASE_URL: "http://localhost:5000/api/v1"
+      REACT_APP_MODE: "production"
     depends_on:
       - backend
   backend:
