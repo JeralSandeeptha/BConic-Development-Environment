@@ -1,0 +1,46 @@
+heartbeat.config.monitors:
+  path: ${path.config}/monitors.d/*.yml
+  reload.enabled: false
+  reload.period: 5s
+
+heartbeat.monitors:
+  - type: http
+    id: bconic-backend
+    name: BConic Backend Service
+    schedule: '@every 5s'
+    hosts: ["http://192.168.1.100:5000/api/v1/application"]
+    check.request.method: GET
+    check.response.status: [200]
+
+  - type: http
+    id: bconic-frontend
+    name: BConic Frontend Service
+    schedule: '@every 5s'
+    hosts: ["http://192.168.1.100:3000/"]
+    check.request.method: GET
+    check.response.status: [200]
+  
+  - type: http
+    id: bconic-pgadmin
+    name: BConic PgAdmin Service
+    schedule: '@every 5s'
+    hosts: ["http://192.168.1.100:5433/login?next=/"]
+    check.request.method: GET
+    check.response.status: [200]
+  
+  - type: tcp
+    id: bconic-postgres
+    name: BConic Postgres Database Service
+    schedule: '@every 5s'
+    hosts: ["192.168.1.100:5432"]
+
+processors:
+- add_cloud_metadata: ~
+- add_docker_metadata: ~
+
+monitoring.enabled: true
+
+output.elasticsearch:
+  hosts: ['http://elasticsearch_container:9200']
+  username: 'elastic'
+  password: 'admin1234'
